@@ -1,6 +1,8 @@
 import 'dart:html';
 import 'dart:math';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flame/components.dart';
+import 'package:flame/layers.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart' hide Image, Draggable;
@@ -11,6 +13,7 @@ import 'package:flame/game.dart';
 import 'package:flame/geometry.dart';
 import 'package:flame/palette.dart';
 import 'package:flame/input.dart';
+import 'package:multiplayer_game/user.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class GameUI extends FlameGame with HasCollidables, HasTappables{//, TapDetector
@@ -22,11 +25,15 @@ class GameUI extends FlameGame with HasCollidables, HasTappables{//, TapDetector
     add(MyCollidable(Vector2.all(50)));
     add(MyCollidable2(Vector2.all(200)));
   }
+  @override
+  Color backgroundColor() => const Color(0xFFFFFFFF);
 
 }
-
 class MyCollidable extends PositionComponent
     with HasGameRef<GameUI>, HasHitboxes, Collidable, Tappable{
+  //final database = FirebaseDatabase.instance.reference();
+  //late int indexLastMessage = -1;
+
   late Vector2 velocity;
   final _collisionColor = Colors.amber;
   final _defaultColor = Colors.green;
@@ -68,7 +75,19 @@ class MyCollidable extends PositionComponent
       return;
     }*/
     if(_beenPressed==true){
-      print("pressionado1");
+      DateTime dateTimenow = DateTime.now();
+      print("green | "+position.storage.toString()+" | "+dateTimenow.toString());
+      /*DatabaseReference RdbWriteMessagesRef = database
+          .child("/Users/" + UserLoggedIn().userId + "/");
+      indexLastMessage++;
+      RdbWriteMessagesRef.child(
+          (indexLastMessage).toString() + "/")
+          .set({
+        'colorCircle':'green',
+        'coordinate':'coordinate',
+        'dateTime':dateTimenow,
+        'indexLastMessage': indexLastMessage,
+      });*/
     }
     _beenPressed=false;
     debugColor = _isCollision ? _collisionColor : _defaultColor;
@@ -157,7 +176,8 @@ class MyCollidable2 extends PositionComponent
       return;
     }*/
     if(_beenPressed==true){
-      print("pressionado2");
+      DateTime dateTimenow = DateTime.now();
+      print("red | "+position.storage.toString()+" | "+dateTimenow.toString());
     }
     _beenPressed=false;
     debugColor = _isCollision ? _collisionColor : _defaultColor;
