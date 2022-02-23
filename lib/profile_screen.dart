@@ -77,8 +77,7 @@ class ProfileScreenState extends State<ProfileScreen>{
             Container(
               width: useMobileLayout? shortestSide:400,
               color: Colors.white,
-              child:
-              Expanded(
+              //child: Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.end,
@@ -98,8 +97,8 @@ class ProfileScreenState extends State<ProfileScreen>{
                     ),
                     SizedBox(
                       height: 300,
-                      child: Expanded(
-                        child: Padding(
+                      child: /*Expanded(
+                        child:*/ Padding(
                           padding:
                           const EdgeInsets.symmetric(horizontal: 20),
                           child: StreamBuilder(
@@ -151,7 +150,7 @@ class ProfileScreenState extends State<ProfileScreen>{
                             },
                           ),
                         ),
-                      ), //lista de mensagens
+                      //), //lista de mensagens
                     ),
                     Container(
                         margin: const EdgeInsets.only(bottom: 10.0),
@@ -200,7 +199,7 @@ class ProfileScreenState extends State<ProfileScreen>{
                     ),
                   ],
                 ),
-              ),
+              //),
             ),
             if(!useMobileLayout)
                       _leftSideScreen(context),
@@ -213,8 +212,7 @@ class ProfileScreenState extends State<ProfileScreen>{
   _leftSideScreen(BuildContext context){
     DatabaseReference ref = database.reference();
     return
-      Expanded(
-        child:
+      Expanded( child:
         Container(
           color: UserLoggedIn().userTeamColor=="green"? Colors.green:Colors.red,
           child:

@@ -33,7 +33,7 @@ class _GameScreenState extends State<GameScreen> {
             Container(
               width: 500,
               color: Colors.white,
-              child: Expanded(
+              //child: Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   //mainAxisAlignment: MainAxisAlignment.end,
@@ -69,7 +69,7 @@ class _GameScreenState extends State<GameScreen> {
                     ),
                   ],
                 ),
-              ),
+              //),
             ),
             if (!useMobileLayout) _rightSideScreen(context),
           ],
@@ -85,8 +85,8 @@ class _GameScreenState extends State<GameScreen> {
         dateTimenow.hour.toString()
         + "-" + dateTimenow.day.toString() + "-" +
         dateTimenow.month.toString() + "/");
-    return Expanded(
-      child: Container(
+    return Expanded( child:
+        Container(
         color: Colors.blue,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -104,7 +104,7 @@ class _GameScreenState extends State<GameScreen> {
             ),
             SizedBox(
               height: 300,
-              child: Expanded(
+              //child: Expanded(
                 child: Padding(
                   padding:
                   const EdgeInsets.symmetric(horizontal: 20),
@@ -164,7 +164,7 @@ class _GameScreenState extends State<GameScreen> {
                     },
                   ),
                 ),
-              ), //lista de mensagens
+              //), //lista de mensagens
             ),
             Spacer(flex: 1,),
             Padding(

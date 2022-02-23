@@ -19,7 +19,7 @@ class ListMatches extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return
-      Expanded(
+      Container(
       //InkWell(
       /*onTap: () {
       },*/

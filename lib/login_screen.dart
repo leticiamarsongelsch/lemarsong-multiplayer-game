@@ -26,8 +26,8 @@ class LoginScreenState extends State<LoginScreen> {
               width: 400,
               color: Colors.blue,
               child:
-              Expanded(
-                child: Column(
+              /*Expanded(
+                child:*/ Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
@@ -44,13 +44,13 @@ class LoginScreenState extends State<LoginScreen> {
                     ),
                   ],
                 ),
-              ),
+              //),
             ),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Spacer(flex: 1),
+                  //const Spacer(flex: 1),
                   Padding(
                     padding: EdgeInsets.all(20),
                     child: Text(
@@ -72,7 +72,7 @@ class LoginScreenState extends State<LoginScreen> {
                           .copyWith(color: Colors.blueAccent),
                     ),
                   ),
-                  Spacer(flex: 1),
+                  //const Spacer(flex: 1),
                   FittedBox(
                     fit: BoxFit.scaleDown,
                     alignment: Alignment.center,
