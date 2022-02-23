@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:multiplayer_game/game_screen.dart';
 import 'package:multiplayer_game/profile_screen.dart';
 import 'package:multiplayer_game/user.dart';
@@ -171,7 +172,10 @@ class Authentication extends StatelessWidget {
                                 return Colors.lightBlue; //Theme.of(context).colorScheme.onSecondary.withOpacity(0.5);
                               }),
                             ),
-                            onPressed: () => _openProfileScreen(context),
+                            onPressed: (){
+                              _setValuesUserLogged();
+                              _openProfileScreen(context);
+                            },
                             //-----------------------ABRIR O JOGO!
                             child: Padding(
                               padding: EdgeInsets.all(20),
@@ -213,6 +217,14 @@ class Authentication extends StatelessWidget {
         builder: (context) => ProfileScreen(),
       ),
     );
+  }
+
+  void _setValuesUserLogged() {
+    UserLoggedIn _userLogged = UserLoggedIn();
+    _userLogged.userEmail = FirebaseAuth.instance.currentUser!.email.toString();
+    _userLogged.userName =
+        FirebaseAuth.instance.currentUser!.displayName.toString();
+    _userLogged.userId = FirebaseAuth.instance.currentUser!.uid.toString();
   }
 
   void _showErrorDialog(BuildContext context, String title, Exception e) {
@@ -465,6 +477,8 @@ class _RegisterFormState extends State<RegisterForm> {
                               UserLoggedIn().userTeamColor="green";
                               UserLoggedIn().userGroup = _groupController.text;
                               UserLoggedIn().userFirstTimeRegister ="true";
+                              UserLoggedIn().userEmail = _emailController.text;
+                              UserLoggedIn().userName = _displayNameController.text;
                             }
                           },
                           child: const Text('SAVE',

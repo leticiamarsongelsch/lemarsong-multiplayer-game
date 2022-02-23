@@ -1,17 +1,18 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:multiplayer_game/matches.dart';
 
 import 'clicksCircles.dart';
 
-class ListClick extends StatelessWidget {
-  ListClick({
+class ListMatches extends StatelessWidget {
+  ListMatches({
     Key? key,
-    required this.userTry,
+    required this.userMatches,
     //required this.press,
   }) : super(key: key);
 
   //final VoidCallback press;
-  final UserTry userTry;
+  final UserMatches userMatches;
 
   //final StateChatScreen statcechscreen = new StateChatScreen();
 
@@ -41,21 +42,21 @@ class ListClick extends StatelessWidget {
                           ConstrainedBox(
                             constraints: BoxConstraints(maxWidth: 400),
                             child: Text(
-                              userTry.coordinate!,
+                              "points green:"+userMatches.pointsgreen!,
                               overflow: TextOverflow.ellipsis,
                               style: TextStyle(
-                                  fontSize: 10,
-                                  color: Colors.white),
+                                  fontSize: 16,
+                                  color: Colors.blue),
                             ),
                           ),
                           ConstrainedBox(
                             constraints: BoxConstraints(maxWidth: 300),
                             child: Text(
-                              userTry.colorCircle!,
+                              "points red:"+userMatches.pointsred!,
                               overflow: TextOverflow.ellipsis,
                               style: TextStyle(
-                                  fontSize: 10,
-                                  color: Colors.white),
+                                  fontSize: 16,
+                                  color: Colors.blue),
                             ),
                           ),
                         ],
@@ -64,10 +65,10 @@ class ListClick extends StatelessWidget {
             Opacity(
               opacity: 0.8,
               child: Text(
-                userTry.dateTime!,
-                style: TextStyle(
-                    fontSize: 8,
-                    color: Colors.white),
+                userMatches.dateTime!,
+                style: TextStyle(fontWeight: FontWeight.bold,
+                    fontSize: 16,
+                    color: Colors.blue),
               ),
             )
           ],

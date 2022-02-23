@@ -16,6 +16,11 @@ import 'package:flame/input.dart';
 import 'package:multiplayer_game/user.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+
+late int indexLastMessage = 0;
+late int pointsgreen = 1;
+late int pointsred = 1;
+FirebaseDatabase database = FirebaseDatabase.instance;
 class GameUI extends FlameGame with HasCollidables, HasTappables{//, TapDetector
   static const description = '''''';
 
@@ -32,7 +37,6 @@ class GameUI extends FlameGame with HasCollidables, HasTappables{//, TapDetector
 class MyCollidable extends PositionComponent
     with HasGameRef<GameUI>, HasHitboxes, Collidable, Tappable{
   //final database = FirebaseDatabase.instance.reference();
-  //late int indexLastMessage = -1;
 
   late Vector2 velocity;
   final _collisionColor = Colors.amber;
@@ -75,19 +79,27 @@ class MyCollidable extends PositionComponent
       return;
     }*/
     if(_beenPressed==true){
+      DatabaseReference ref = database.reference();
       DateTime dateTimenow = DateTime.now();
       print("green | "+position.storage.toString()+" | "+dateTimenow.toString());
-      /*DatabaseReference RdbWriteMessagesRef = database
-          .child("/Users/" + UserLoggedIn().userId + "/");
-      indexLastMessage++;
-      RdbWriteMessagesRef.child(
-          (indexLastMessage).toString() + "/")
-          .set({
+      ref.child("/Users/"+ UserLoggedIn().userId +"/Match/"+"/"+dateTimenow.hour.toString()
+          +"-"+dateTimenow.day.toString()+"-"+dateTimenow.month.toString()+"/"
+      +indexLastMessage.toString()+"/").set({
         'colorCircle':'green',
-        'coordinate':'coordinate',
-        'dateTime':dateTimenow,
+        'coordinate':position.storage.toString(),
+        'dateTime':dateTimenow.toString(),
         'indexLastMessage': indexLastMessage,
-      });*/
+      }).catchError((error)=> print("$error"));
+      indexLastMessage++;
+      //if(UserLoggedIn().userTeamColor.toLowerCase()=="green" || identical(UserLoggedIn().userTeamColor, "green")) {
+        ref.child("/Users/" + UserLoggedIn().userId + "/Match/" + "/" +
+            dateTimenow.hour.toString()
+            + "-" + dateTimenow.day.toString() + "-" +
+            dateTimenow.month.toString() + "/").update({
+          'pointsgreen': pointsgreen.toString(),
+        }).catchError((error) => print("$error"));
+        pointsgreen++;
+      //}
     }
     _beenPressed=false;
     debugColor = _isCollision ? _collisionColor : _defaultColor;
@@ -178,6 +190,25 @@ class MyCollidable2 extends PositionComponent
     if(_beenPressed==true){
       DateTime dateTimenow = DateTime.now();
       print("red | "+position.storage.toString()+" | "+dateTimenow.toString());
+      DatabaseReference ref = database.reference();
+      ref.child("/Users/"+ UserLoggedIn().userId +"/Match/"+"/"+dateTimenow.hour.toString()
+          +"-"+dateTimenow.day.toString()+"-"+dateTimenow.month.toString()+"/"
+          +indexLastMessage.toString()+"/").set({
+        'colorCircle':'red',
+        'coordinate':position.storage.toString(),
+        'dateTime':dateTimenow.toString(),
+        'indexLastMessage': indexLastMessage,
+      }).catchError((error)=> print("$error"));
+      indexLastMessage++;
+      //if(UserLoggedIn().userTeamColor.toLowerCase()=="red" || identical(UserLoggedIn().userTeamColor, "red")) {
+        ref.child("/Users/" + UserLoggedIn().userId + "/Match/" + "/" +
+            dateTimenow.hour.toString()
+            + "-" + dateTimenow.day.toString() + "-" +
+            dateTimenow.month.toString() + "/").update({
+          'pointsred': pointsred.toString(),
+        }).catchError((error) => print("$error"));
+        pointsred++;
+      //}
     }
     _beenPressed=false;
     debugColor = _isCollision ? _collisionColor : _defaultColor;

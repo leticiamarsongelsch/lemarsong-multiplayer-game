@@ -50,7 +50,8 @@ Future<void> main() async {
         storageBucket: configurations.storageBucket,
         messagingSenderId: configurations.messagingSenderId,
         appId: configurations.appId,
-        measurementId: configurations.measurementId
+        measurementId: configurations.measurementId,
+        databaseURL: configurations.databaseId,
     ),
   );
   runApp(ChangeNotifierProvider(

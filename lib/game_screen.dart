@@ -20,11 +20,10 @@ class _GameScreenState extends State<GameScreen> {
   bool gamepaused = false;
   GameUI gameUI = GameUI();
 
-  //final database = FirebaseDatabase.instance.reference();
+  final database = FirebaseDatabase.instance.reference();
 
   @override
   Widget build(BuildContext context) {
-    _setValuesUserLogged();
     var shortestSide = MediaQuery.of(context).size.shortestSide;
     final bool useMobileLayout = shortestSide < 560;
     return Scaffold(
@@ -80,16 +79,12 @@ class _GameScreenState extends State<GameScreen> {
     //_theGameScreen();
   }
 
-  void _setValuesUserLogged() {
-    UserLoggedIn _userLogged = UserLoggedIn();
-    _userLogged.userEmail = FirebaseAuth.instance.currentUser!.email.toString();
-    _userLogged.userName =
-        FirebaseAuth.instance.currentUser!.displayName.toString();
-    _userLogged.userId = FirebaseAuth.instance.currentUser!.uid.toString();
-  }
-
   _rightSideScreen(BuildContext context) {
-    //final RdbUserRef = database.child("/Users/"+UserLoggedIn().userId+"/");
+    DateTime dateTimenow = DateTime.now();
+    final RdbUserRef = database.child("/Users/"+UserLoggedIn().userId+"/Match/"+
+        dateTimenow.hour.toString()
+        + "-" + dateTimenow.day.toString() + "-" +
+        dateTimenow.month.toString() + "/");
     return Expanded(
       child: Container(
         color: Colors.blue,
@@ -107,7 +102,6 @@ class _GameScreenState extends State<GameScreen> {
                 onPressed: () => _openLoginScreen(context),
               ),
             ),
-            /*
             SizedBox(
               height: 300,
               child: Expanded(
@@ -153,7 +147,7 @@ class _GameScreenState extends State<GameScreen> {
                                     .textTheme
                                     .caption!
                                     .decorationStyle,
-                                color: Colors.blue));
+                                color: Colors.white));
                       } else {
                         return ListView.builder(
                             itemCount: listListClick.length,
@@ -171,7 +165,7 @@ class _GameScreenState extends State<GameScreen> {
                   ),
                 ),
               ), //lista de mensagens
-            ),*/
+            ),
             Spacer(flex: 1,),
             Padding(
               padding: EdgeInsets.all(20),
